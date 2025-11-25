@@ -189,9 +189,9 @@ def getClosestClusterToCenter(code):
     return closestCluster
 
 
-def getLargerCluster(code):
-    largerCluster = 0
-    largerClusterCount = 0
+def getLargestCluster(code):
+    largestCluster = 0
+    largestClusterCount = 0
     sList = extractCodeFromList(code)
     cList = getClusterNumberListForColor(code)
     for c in cList:
@@ -199,10 +199,11 @@ def getLargerCluster(code):
         for s in sList:
             if(s.cluster == c):
                 sCount += 1
-        if(sCount > largerClusterCount):
-            largerClusterCount = sCount
-            largerCluster = c
-    print(f"Code: {code}, Larger cluster: {largerCluster}")
+        if(sCount > largestClusterCount):
+            largestClusterCount = sCount
+            largestCluster = c
+    # print(f"Code: {code}, Largest cluster: {largestCluster}")
+    return largestCluster
 
 
 def main():
@@ -215,7 +216,7 @@ def main():
     height = int(jsonFile['properties']['height'])
     stitchesList = fileToStitches(jsonFile, width, height)
 
-    TH = 20
+    TH = 12
     # Set output image properties
     SIZE = 10
     imageW = width * SIZE
@@ -247,8 +248,8 @@ def main():
         # print(colorClusters)
         clusterSequence = []
         # nextCluster = colorClusters[0]
-        nextCluster = getClosestClusterToCenter(color)
-        getLargerCluster(color)
+        # nextCluster = getClosestClusterToCenter(color)
+        nextCluster = getLargestCluster(color)
         while(len(colorClusters) > 0):
             # colorClusters.remove(nextCluster)
             # print("colorClusters", colorClusters)
